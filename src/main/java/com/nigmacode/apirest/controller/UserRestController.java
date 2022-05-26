@@ -40,7 +40,7 @@ public class UserRestController {
     /*Este método ser hará cuando por una petición GET(como indica la anotacion)
     se llame a la url http://127.0.0.1:8080/api/users/1
     */
-    @GetMapping("/users/{userId}")
+    @GetMapping("/users/id/{userId}")
     public User getUser(@PathVariable int userId){
         User user = userService.findById(userId);
 
@@ -50,6 +50,7 @@ public class UserRestController {
         //retornará al usuario con id pasado en la url
         return user;
     }
+
 
     /*Este método ser hará cuando por una petición GET(como indica la anotacion)
     se llame a la url http://127.0.0.1:8080/api/users
@@ -63,6 +64,8 @@ public class UserRestController {
 
         return user;
     }
+
+
 
     /*Este método ser hará cuando por una petición GET(como indica la anotacion)
     se llame a la url http://127.0.0.1:8080/api/users
@@ -91,6 +94,16 @@ public class UserRestController {
         //Este método, recibirá el ide de un usuario por URL y se borrará de la bd.
         return "Delete user id -"+userId;
     }
+    @GetMapping("users/{nombre_caso_uso}")
+    public User getNombreCasoUso(@PathVariable String nombre_caso_uso){
+        User user = userService.findByNombre(nombre_caso_uso);
 
+        if (user==null){
+            throw new RuntimeException("Nombre caso de uso not found -"+nombre_caso_uso);
+        }
+
+        //Este método, recibirá el ide de un usuario por URL y se borrará de la bd.
+        return user;
+    }
 
 }

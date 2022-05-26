@@ -10,6 +10,6 @@ public interface UserService {
     public User findById(int id);
 
     public void save(User user);
-
+    public User findByNombre(String nombre_caso_uso);
     public void deleteById(int id);
 }

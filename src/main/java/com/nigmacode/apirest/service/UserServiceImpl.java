@@ -26,7 +26,10 @@ public class UserServiceImpl  implements UserService{
         User user = userDAO.findById(id);
         return user;
     }
-
+    public User findByNombre(String nombre_caso_uso){
+        User user = userDAO.findByNombre(nombre_caso_uso);
+        return user;
+    }
     @Override
     public void save(User user){
         userDAO.save(user);

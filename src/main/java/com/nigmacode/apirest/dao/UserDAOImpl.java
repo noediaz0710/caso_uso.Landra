@@ -21,7 +21,7 @@ public class UserDAOImpl implements UserDAO{
     @Override
     public List<User> findAll() {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<User> theQuery = currentSession.createQuery("from User", User.class);
+        Query<User>  theQuery = currentSession.createQuery("from User", User.class);
         List<User> users = theQuery.getResultList();
         return users;
     }
@@ -30,6 +30,14 @@ public class UserDAOImpl implements UserDAO{
     public User findById(int id) {
         Session currentSession = entityManager.unwrap(Session.class);
         User user = currentSession.get(User.class, id);
+        return user;
+    }
+    @Override
+    public User findByNombre(String nombre_caso_uso) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<User>  theQuery = currentSession.createQuery("from User where nombre_caso_uso like :z" );
+        theQuery.setParameter("z", nombre_caso_uso);
+        User user = theQuery.getSingleResult();
         return user;
     }
 
@@ -46,6 +54,14 @@ public class UserDAOImpl implements UserDAO{
         Session currentSession = entityManager.unwrap(Session.class);
         Query<User> theQuery = currentSession.createQuery("delete from User where id=:cod_caso_uso");
         theQuery.setParameter("cod_caso_uso", id);
+        theQuery.executeUpdate();
+    }
+    @Override
+    @Transactional
+    public void deletedById(String nombre_caso_uso) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<User> theQuery = currentSession.createQuery("delete from User where nombre_caso_uso like :z");
+        theQuery.setParameter("z", nombre_caso_uso);
         theQuery.executeUpdate();
     }
 }
